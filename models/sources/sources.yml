@@ -1,0 +1,11 @@
+version: 2
+
+sources:
+  - name: raw
+    database: source
+    schema: raw 
+    tables: 
+      - name: cf_usuarios
+      - name: cf_resenas
+      - name: cf_cursos
+      - name: cf_inscripciones

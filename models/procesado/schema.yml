@@ -1,0 +1,57 @@
+
+version: 2
+
+models:
+  - name: resenas
+    description: "Modelo con reseñas de Cursos de Codigo Facilito"
+    columns:
+      - name: feedback_id
+      - name: course_id
+      - name: user_id 
+      - name: rating
+      - name: comment
+      - name: created_at
+
+  - name: cursos
+    description: "Modelo con cursos de Codigo Facilito"
+    columns:
+      - name: course_id
+      - name: title
+      - name: difficulty
+      - name: release_date
+
+  - name: usuarios
+    description: "Modelo con usuarios de Cursos de Codigo Facilito"
+    columns:
+      - name: user_id 
+      - name: first_name
+      - name: last_name
+      - name: email
+      - name: signup_date
+      - name: username
+      - name: subscription_type
+
+  - name: inscripciones
+    description: "Modelo con inscripciones de Codigo Facilito"
+    columns:
+      - name: enrollment_id
+        description: "ID de inscripcion"
+        type: varchar
+        tests: 
+          - unique
+          - not_null 
+      - name: course_id
+        description: "ID de curso"
+        type: varchar 
+        tests: 
+          - not_null 
+      - name: user_id 
+        description: "ID de usuario"
+        type: varchar
+        tests: 
+          - not_null 
+      - name: enrollment_date
+        description: "Fecha de inscripcion"
+        type: date
+        tests: 
+          - not_null 
