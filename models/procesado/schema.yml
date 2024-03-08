@@ -1,4 +1,3 @@
-
 version: 2
 
 models:
@@ -6,30 +5,102 @@ models:
     description: "Modelo con reseñas de Cursos de Codigo Facilito"
     columns:
       - name: feedback_id
+        description: "ID de reseña"
+        type: varchar
+        tests:
+          - unique
+          - not_null
       - name: course_id
-      - name: user_id 
+        description: "ID de curso"
+        type: varchar
+        tests:
+          - not_null
+          - relationships:
+              to: ref('cursos')
+              field: course_id
+      - name: user_id
+        description: "ID de usuario"
+        type: varchar
+        tests:
+          - not_null
+          - relationships:
+              to: ref('usuarios')
+              field: user_id
       - name: rating
+        type: numeric
+        tests:
+          - not_null
+          - accepted_values:
+              values: [1, 2, 3, 4, 5]
+              quote: false
       - name: comment
+        type: varchar
+        tests:
+          - not_null
       - name: created_at
+        type: timestamp_ntz
+        tests:
+          - not_null
 
   - name: cursos
     description: "Modelo con cursos de Codigo Facilito"
     columns:
       - name: course_id
+        description: "ID de curso"
+        type: varchar
+        tests:
+          - not_null
       - name: title
+        type: varchar
+        tests:
+          - not_null
       - name: difficulty
+        type: varchar
+        tests:
+          - not_null
+          - accepted_values:
+              values: ["beginner", "intermediate", "advanced"]
       - name: release_date
+        type: timestamp_ntz
+        tests:
+          - not_null
 
   - name: usuarios
     description: "Modelo con usuarios de Cursos de Codigo Facilito"
     columns:
-      - name: user_id 
+      - name: user_id
+        description: "ID de usuario"
+        type: varchar
+        tests:
+          - not_null
       - name: first_name
+        description: "Nombre del usuario"
+        type: varchar
+        tests:
+          - not_null
       - name: last_name
+        description: "Apellidos del usuario"
+        type: varchar
+        tests:
+          - not_null
       - name: email
+        type: varchar
+        tests:
+          - not_null
       - name: signup_date
+        type: timestamp_ntz
+        tests:
+          - not_null
       - name: username
+        type: varchar
+        tests:
+          - not_null
       - name: subscription_type
+        type: varchar
+        tests:
+          - not_null
+          - accepted_values:
+              values: ["free", "premium", "premium-max"]
 
   - name: inscripciones
     description: "Modelo con inscripciones de Codigo Facilito"
@@ -37,21 +108,27 @@ models:
       - name: enrollment_id
         description: "ID de inscripcion"
         type: varchar
-        tests: 
+        tests:
           - unique
-          - not_null 
+          - not_null
       - name: course_id
         description: "ID de curso"
-        type: varchar 
-        tests: 
-          - not_null 
-      - name: user_id 
+        type: varchar
+        tests:
+          - not_null
+          - relationships:
+              to: ref('cursos')
+              field: course_id
+      - name: user_id
         description: "ID de usuario"
         type: varchar
-        tests: 
-          - not_null 
+        tests:
+          - not_null
+          - relationships:
+              to: ref('usuarios')
+              field: user_id
       - name: enrollment_date
         description: "Fecha de inscripcion"
         type: date
-        tests: 
-          - not_null 
+        tests:
+          - not_null
